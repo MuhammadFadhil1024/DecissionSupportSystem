@@ -19,4 +19,9 @@ class Category extends Model
     {
         return $this->hasMany(Criteria::class, 'categories_id', 'id');
     }
+
+    public function alternatives()
+    {
+        return $this->hasMany(Alternative::class, 'categories_id', 'id');
+    }
 }

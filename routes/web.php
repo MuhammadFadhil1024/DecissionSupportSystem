@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckAlternativesCriteriasMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('data/{categories_id}', [ProcessController::class, 'index']);
             Route::get('data/{categories_id}/result', [ProcessController::class, 'result']);
             Route::get('data/{categories_id}/result/detail/{alternative_id}/alternative', [ProcessController::class, 'show']);
-            Route::get('data/{categories_id}/generate', [ProcessController::class, 'generate']);
+            Route::get('data/{categories_id}/generate', [ProcessController::class, 'generate'])->middleware('checkAlternativesCriterias');
 
             // Route for alternative
             Route::get('{categories_id}/alternative', [AlternativeController::class, 'index']);
