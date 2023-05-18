@@ -22,12 +22,12 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                      <table class="table table-bordered">
+                      <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                          <tr>
-                            <th class="text-center" style="width: 10px">#</th>
-                            <th class="text-center">Name</th>
-                          </tr>
+                        <tr>
+                            <th class="dt-head-center" style="width: 15px">No</th>
+                            <th class="dt-head-center">Name</th>
+                        </tr>
                         </thead>
                         <tbody>
                           @foreach ($alternatives as $index => $alternative)

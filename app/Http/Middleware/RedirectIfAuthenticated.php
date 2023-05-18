@@ -21,9 +21,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect()->route('dashboard.category.index');
             }
         }
+
+        // dd(Auth::check());
+
+        // if (Auth::check()) {
+        //     return redirect()->route('login');
+        // }
 
         return $next($request);
     }

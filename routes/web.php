@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ use App\Http\Controllers\Auth\RegisterController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/register', [RegisterController::class, 'index']);
-Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/register/store', [RegisterController::class, 'store']);
 Route::post('/login/store', [LoginController::class, 'store']);
 Route::get('/logout', [LoginController::class, 'logout']);
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::get('home', [DashboardController::class, 'index']);
         Route::resource('category', CategoryController::class);
+        Route::resource('user', UserController::class)->except('update');
+        Route::put('user/update', [UserController::class, 'update'])->name('update');
 
         Route::name('process.')->prefix('process/category')->group(function () {
 

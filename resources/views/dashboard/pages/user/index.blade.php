@@ -12,9 +12,8 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-2">
+          <div class="col-sm-6">
             {{-- <h1 class="m-0">Category</h1> --}}
-            <a type="button" href="{{ route('dashboard.category.create') }}" class="btn btn-block btn-outline-primary"> <i class="fas fa-plus nav-icon"></i> Add category</a>
           </div><!-- /.col -->
           {{-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -34,7 +33,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Categories</h3>
+                      <h3 class="card-title">Users</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -42,33 +41,27 @@
                         <thead>
                         <tr>
                             <th class="dt-head-center">No</th>
-                            <th class="w-50 dt-head-center">Category</th>
-                            <th class="w-50 dt-head-center">Action</th>
+                            <th class="w-50 dt-head-center">Name</th>
+                            <th class="dt-head-center">Roles</th>
+                            <th class="dt-head-center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $index => $category)
+                            @foreach ($users as $index => $user)
                             <tr>
                               <td>{{ $index + 1 }}</td>
-                              <td> {{$category->name}} </td>
-                              {{-- <td> {{$category->description}} </td> --}}
+                              <td> {{$user->name}} </td>
+                              <td> {{$user->roles}} </td>
                               <td class="dt-body-center">
-                                    <form action="{{ route('dashboard.category.destroy', $category->id) }}"
-                                        class="d-inline" method="POST">
+                                    <form action="{{ route('dashboard.user.destroy',$user->id) }}"  class = "d-inline"   method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
-                                        <button class="btn btn-danger ml-1">Delete</button>
+                                        <button class="btn btn-danger">Delete</button>
                                     </form>
-                                    <button type="button" value="{{ $category->id }}"
-                                        data-toggle="modal" data-target="#detail-Category-Modal"
-                                        class="btn d-inline btn-info showbtn">Detail</button>
-                                    <a href="{{ route('dashboard.category.edit', $category->id) }}">
-                                        <button class="btn d-inline btn-warning">Edit</button>
-                                    </a>
-                                    <a href="/dashboard/process/category/data/{{$category->id}}">
-                                        <button class="btn d-inline btn-success">Process</button>
-                                    </a>
-                              </td>
+                                <button type="button" value="{{ $user->id }}"
+                                    data-toggle="modal" data-target="#edit-User-Modal"
+                                    class="btn btn-warning d-inline showbtn">Edit</button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -85,7 +78,7 @@
   </div>
 @endsection
 
-@include('dashboard.components.modal.detailCategory')
+@include('dashboard.components.modal.editUser')
 
 @push('js')
 <script src="{{ asset('assets/dashboard/plugins/datatables/jquery.dataTables.min.js') }} "></script>
@@ -125,10 +118,12 @@
                     var id = $(this).val();
                     $.ajax({
                         type: "GET",
-                        url: 'category/' + id,
+                        url: 'user/' + id + '/edit',
                         success: function(response) {
-                            $('.name').text(response.categorydata.name);
-                            $('.description').text(response.categorydata.description);
+                            $('#roles_now').text(response.userRoles.roles);
+                            $('#roles_value').val(response.userRoles.roles);
+                            $('#id').val(response.userRoles.id);
+                            $('#name').text(response.userRoles.name);
                         }
                     })
                 })

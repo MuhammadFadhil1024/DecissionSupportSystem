@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.pages.dashboard');
+        $users_count = User::select('id')->count();
+
+        $categories = Category::select('id')->get();
+        // dd($categories);
+
+        return view('dashboard.pages.dashboard', [
+            'users_count' => $users_count,
+            'categories' => $categories
+        ]);
     }
 }

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
+
     public function index()
     {
         return view('authentication.pages.login');
@@ -32,7 +37,7 @@ class LoginController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
-                return redirect('dashboard/home')->with('success', 'Login success');
+                return redirect()->route('dashboard.category.index')->with('success', 'Login success');
             }
             return redirect()->back()->with('error', 'email or password wrong');
         } catch (\Exception $e) {
@@ -45,7 +50,7 @@ class LoginController extends Controller
         try {
             auth()->logout();
 
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success', 'Logout success');
         } catch (\Throwable $th) {
             //throw $th;
             return redirect()->back()->with('error', 'Error during the creation!');

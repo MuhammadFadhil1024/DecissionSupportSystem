@@ -39,7 +39,7 @@ class RegisterController extends Controller
 
             auth()->login($user);
 
-            return redirect('dashboard/home')->with('success', 'Registration success');
+            return redirect()->route('dashboard.category.index')->with('success', 'Registration success');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Error during the creation!');

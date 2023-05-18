@@ -4,8 +4,8 @@
 
 
 @yield('content')
-
 @include('sweetalert::alert')
+
 <!-- jQuery -->
 @include('authentication.layouts.script')
 </html>
