@@ -77,14 +77,16 @@
               </a>
             </li>
           @endif
-          <li class="nav-item">
-            <a href="{{ route('dashboard.user.index') }}" class="nav-link">
-              <i class="fas fa-users nav-icon"></i>
-              <p>
-                Users
-              </p>
-            </a>
-          </li>
+          @if (Auth::user()->roles == "ADMIN")
+            <li class="nav-item">
+              <a href="{{ route('dashboard.user.index') }}" class="nav-link">
+                <i class="fas fa-users nav-icon"></i>
+                <p>
+                  Users
+                </p>
+              </a>
+            </li>
+          @endif
           <li class="nav-item">
             <a href="/logout" class="nav-link">
               <i class="fas fa-power-off nav-icon"></i>
