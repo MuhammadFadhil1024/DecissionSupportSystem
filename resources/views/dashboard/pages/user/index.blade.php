@@ -43,7 +43,9 @@
                             <th class="dt-head-center">No</th>
                             <th class="w-50 dt-head-center">Name</th>
                             <th class="dt-head-center">Roles</th>
-                            <th class="dt-head-center">Action</th>
+                            @if (Auth::user()->roles == "ADMIN")
+                              <th class="dt-head-center">Action</th>  
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -52,16 +54,18 @@
                               <td>{{ $index + 1 }}</td>
                               <td> {{$user->name}} </td>
                               <td> {{$user->roles}} </td>
-                              <td class="dt-body-center">
-                                    <form action="{{ route('dashboard.user.destroy',$user->id) }}"  class = "d-inline"   method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('delete') }}
-                                        <button class="btn btn-danger">Delete</button>
-                                    </form>
-                                <button type="button" value="{{ $user->id }}"
-                                    data-toggle="modal" data-target="#edit-User-Modal"
-                                    class="btn btn-warning d-inline showbtn">Edit</button>
+                              @if (Auth::user()->roles == "ADMIN")
+                                <td class="dt-body-center">
+                                      <form action="{{ route('dashboard.user.destroy',$user->id) }}"  class = "d-inline"   method="POST">
+                                          {{ csrf_field() }}
+                                          {{ method_field('delete') }}
+                                          <button class="btn btn-danger">Delete</button>
+                                      </form>
+                                  <button type="button" value="{{ $user->id }}"
+                                      data-toggle="modal" data-target="#edit-User-Modal"
+                                      class="btn btn-warning d-inline showbtn">Edit</button>
                                 </td>
+                              @endif
                             </tr>
                             @endforeach
                         </tbody>

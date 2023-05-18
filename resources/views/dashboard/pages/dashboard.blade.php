@@ -59,36 +59,31 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
+                
                 <h3>{{ $users_count }}</h3>
-
-                <h5>Admin user</h5>
+                <p>User on this aplication</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('dashboard.user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
-          {{-- <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ $categories->count() }}</h3>
 
-                <p>Unique Visitors</p>
+                <p>Total of Category</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('dashboard.category.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div> --}}
-          <!-- ./col -->
+          </div>
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
 
       <div class="container-fluid mt-3">
@@ -101,17 +96,20 @@
               @else
                 <div class="info-box bg-blue"> 
               @endif
-                <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+                <span class="info-box-icon"><i class="nav-icon fas fa-copy"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Likes</span>
-                  <span class="info-box-number">41,410</span>
-
-                  {{-- <div class="progress">
-                    <div class="progress-bar" style="width: 70%"></div>
-                  </div> --}}
+                  <span class="info-box-text">{{ $category->name }}</span>
+                  {{-- <span class="info-box-number">Alternatives : {{ $category->alternatives()->count() }}</span>
+                  <span class="info-box-number">Criteria : {{ $category->criteria()->count() }}</span> --}}
                   <span class="progress-description">
-                    70% Increase in 30 Days
+                    <span class="badge badge-light">Alternative : {{ $category->alternatives()->count() }}</span>
+                    <span class="badge badge-light">Criteria : {{ $category->criteria()->count() }}</span>
+                    {{-- <a href="" class="badge badge-light">Detail</a> --}}
+                  </span>
+                  <span class="progress-description">
+                    {{-- <span class="badge badge-light">Criteria : {{ $category->criteria()->count() }}</span> --}}
+                    <a href="/dashboard/process/category/data/{{$category->id}}" class="badge badge-light">Detail</a>
                   </span>
                 </div>
                 <!-- /.info-box-content -->

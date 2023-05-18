@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         $users_count = User::select('id')->count();
 
-        $categories = Category::select('id')->get();
+        $categories = Category::with('alternatives', 'criteria')->select('id', 'name')->get();
         // dd($categories);
 
         return view('dashboard.pages.dashboard', [
