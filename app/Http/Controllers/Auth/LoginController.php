@@ -37,7 +37,7 @@ class LoginController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
-                return redirect()->route('dashboard.category.index')->with('success', 'Login success');
+                return redirect()->route('dashboard.')->with('success', 'Login success');
             }
             return redirect()->back()->with('error', 'email or password wrong');
         } catch (\Exception $e) {
